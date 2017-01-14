@@ -16,6 +16,13 @@ d.times {|dx|
       feat['properties'].delete_if{|k, v|
         %w{fid lfSpanFr lfSpanTo devDate orgMDId}.include?(k)
       }
+      if feat['properties']['vis']
+        if feat['properties']['vis'] == '非表示'
+          next
+        else
+          feat['properties'].delete('vis')
+        end
+      end
       case feat['properties']['type']
       when '普通建物', '一般等高線', '標高点（測点）', '一条河川', '徒歩道', '普通無壁舎', '徒歩道', '歩道', '庭園路等', 'せき', '分離帯', '側溝', 'トンネル内の道路', '防波堤', '三角点', '透過水制', 'その他', '水門', 'トンネル内の鉄道', '水準点', '不透過水制', '不明', '敷石斜坂'
         # 最詳細
